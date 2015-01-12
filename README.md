@@ -1,5 +1,5 @@
 # proginoskes
-Monitor your infastructure in real time
+Monitor your infrastructure in real time using ssh to centralize a stream of log events
 
 ## install ##
 To install `npm install proginoskes`
