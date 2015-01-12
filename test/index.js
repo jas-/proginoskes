@@ -6,6 +6,9 @@
 
 var cherubum = require('../')
   , fs = require('fs')
+  , chai = require('chai')
+  , should = chai.should()
+  , expect = chai.expect;
 
 var options = {
   global: {
@@ -24,9 +27,14 @@ var options = {
   ]
 };
 
-cherubum.proginoskes(options, function(err, stream){
-  if (err) throw err;
+describe('proginoskes', function(){
 
-  console.log(stream);
-  console.log('===============================');
+  describe('connection', function(){
+    it('check for stream object', function(done){
+      cherubum.proginoskes(options, function(err, stream){
+        should.not.exist(err);
+        stream.should.be.a('object');
+      });
+    });
+  });
 });
