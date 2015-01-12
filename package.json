@@ -1,0 +1,34 @@
+{
+  "name": "proginoskes",
+  "version": "0.1.6",
+  "description": "Monitor your infastructure in real time",
+  "author": "Jason Gerfen <jason.gerfen@gmail.com>",
+  "keywords": [
+    "monitor",
+    "ssh",
+    "logs",
+    "infrastructure"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jas-/proginoskes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jas-/proginoskes/issues"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "npm test"
+  },
+  "dependencies": {
+    "async": "~0.9.0",
+    "deepmerge": "^0.2.7",
+    "ssh2": "~0.3.6"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.0",
+    "chai": "~1.8.1"
+  },
+  "license": "MIT",
+  "engine": "node >= v0.10.*"
+}
