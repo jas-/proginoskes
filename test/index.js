@@ -14,27 +14,33 @@ var options = {
   global: {
     port: 22,
     username: 'root',
-    password: 'password'
+    logs: [
+      '/var/log/audit/audit.log'
+    ]
   },
   hosts: [
     {
       host: 'localhost',
+      password: 'password',
       logs: [
-        '/var/log/ufw.log',
-        '/var/log/audit/audit.log'
+        '/var/log/ufw.log'
       ]
     }
   ]
 };
 
-describe('proginoskes', function(){
+describe('proginoskes', function() {
 
-  describe('connection', function(){
-    it('check for stream object', function(done){
-      cherubum.proginoskes(options, function(err, stream){
+  describe('connection', function() {
+
+    it('check for stream object', function(done) {
+      cherubum.proginoskes(options, function(err, stream) {
         should.not.exist(err);
+
         stream.should.be.a('object');
+        done();
       });
     });
+
   });
 });
