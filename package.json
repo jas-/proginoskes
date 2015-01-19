@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "mocha": "~1.17.0",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "cli-color": "~0.3.2"
   },
   "license": "MIT",
   "engine": "node >= v0.10.*"
