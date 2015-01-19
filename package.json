@@ -1,6 +1,6 @@
 {
   "name": "proginoskes",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Monitor your infastructure in real time",
   "author": "Jason Gerfen <jason.gerfen@gmail.com>",
   "keywords": [
@@ -27,8 +27,7 @@
   },
   "devDependencies": {
     "mocha": "~1.17.0",
-    "chai": "~1.8.1",
-    "cli-color": "~0.3.2"
+    "chai": "~1.8.1"
   },
   "license": "MIT",
   "engine": "node >= v0.10.*"
