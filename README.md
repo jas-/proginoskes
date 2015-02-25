@@ -30,7 +30,7 @@ var options = {
     username: 'root',
     privateKey: './path/to/global/privatekey',
     logs: [
-      '/var/log/ufw.log'
+      '/var/log/ufw.log' //all hosts stream this log
     ]
   },
   hosts: [
@@ -38,7 +38,9 @@ var options = {
       host: 'host-1.example',
       privateKey: './path/to/host-1.example/privatekey',
       logs: [
-        '/var/log/snort/snort.log'
+        '/var/log/snort/snort.log',
+        '/var/log/audit/audit.log',
+        '/var/log/kern.log'
       ]
     },
     {
@@ -51,7 +53,8 @@ var options = {
       host: 'host-3.example',
       password: 'secret-sauce',
       logs: [
-        '/var/log/iptables.log'
+        '/var/log/iptables.log',
+        '/var/log/audit/audit.log'
       ]
     }
   ]
