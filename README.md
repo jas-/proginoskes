@@ -1,6 +1,8 @@
 # proginoskes
 Monitor your infrastructure in real time using ssh to centralize a stream of log events
 
+![a drove of dragons](http://25.media.tumblr.com/tumblr_m8jmo41oDw1qz88jjo1_500.jpg)
+
 ## install ##
 To install `npm install proginoskes`
 
