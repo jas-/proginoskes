@@ -28,11 +28,11 @@ _Example_
 ```javascript
 var options = {
   global: {
-    port: 22,
-    username: 'root',
-    privateKey: './path/to/global/privatekey',
+    port: 22, //all hosts use this port unless defined
+    username: 'root', //all hosts use this account unless defined
+    privateKey: './path/to/global/privatekey', //all hosts use this key unless defined
     logs: [
-      '/var/log/ufw.log' //all hosts stream this log
+      '/var/log/ufw.log' //all hosts stream these logs
     ]
   },
   hosts: [
