@@ -82,7 +82,7 @@ cherubum.proginoskes(options, function(err, data) {
 The returned object(s) are simple, but makes it easy to determine source.
 
 _Example_
-```javascript```
+```javascript 
 [ { server: 'server-1',
     log: '/var/log/ufw.log',
     data: 'Jan  9 07:24:12 node kernel: [UFW BLOCK] IN=eth0 OUT= MAC=52:54:00:12:34:56:52:55:0a:00:02:02:08:00 SRC=192.168.2.8 DST=10.0.2.15 LEN=44 TOS=0x00 PREC=0x00 TTL=64 ID=1593 PROTO=TCP SPT=60948 DPT=443 WINDOW=8760 RES=0x00 SYN URGP=0' },
