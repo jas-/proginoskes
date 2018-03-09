@@ -11,6 +11,7 @@ var server = require(process.cwd()+'/test/assets/ssh-server.js');
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
+var proc = require('child_process').exec;
 
 var timeout = 1024 * 1024;
 
@@ -18,18 +19,19 @@ var timeout = 1024 * 1024;
 // Define options for proginoskes
 var options = {
   global: {
+    digest: true,
     port: 2222,
     username: 'root',
     password: 'password',
     logs: [
-      '/var/log/audit/audit.log'
+      '/var/log/bootstrap.log'
     ]
   },
   hosts: [
     {
       host: 'localhost',
       logs: [
-        '/var/log/ufw.log'
+        '/var/log/test.log'
       ]
     }
   ]
@@ -50,7 +52,6 @@ var port = 2222;
 // Ensure we have the tools to readh keys
 var utils = ssh2.utils;
 var pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync(assets+'id_rsa')));
-
 
 
 describe('proginoskes', function() {
@@ -84,14 +85,28 @@ describe('proginoskes', function() {
           session.once('exec', function(accept, reject, info) {
 
             var stream = accept();
+            var object = [];
 
-            require('child_process').execSync(info.command, function(err, stdout, stderr) {
+            var exec = proc(info.command, function(err, stdout, stderr) {
               if (err) return stream.write(new Error(err));
-
-              stream.write(stdout);
-              stream.exit(0);
-              stream.end();
             });
+
+            exec.stderr.on('data', function(err, stdout, stderr) {
+              if (err) return stream.write(new Error(err));
+            })
+
+            exec.stdout.on('data', function(chunk) {
+              object.push(chunk);
+            });
+            
+            exec.stdout.on('end', function() {
+
+              for(var bits in object) {
+                stream.write(bits);
+                stream.exit(0);
+                stream.end();
+              }
+            })
           });
         });
       }).on('end', function() {
@@ -104,14 +119,16 @@ describe('proginoskes', function() {
   });
 
   afterEach(function(done) {
-    
+    done();  
   });
 
   context('connection', function() {
     it('check for stream object', function(done) {
+
       this.timeout(timeout);
+
       cherubum.proginoskes(options, function(err, stream) {
-        console.log(arguments)
+        //console.log(arguments)
         //should.not.exist(err);
 
         //stream.should.be.a('object');
