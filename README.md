@@ -10,19 +10,19 @@ To install `npm install proginoskes`
 The available configuration sections and options.
 
 1. `global`: Anything defined here is applied to all defined hosts
- 1. `host`: A host name defined here will work as a defined host
- 2. `port`: The default is 22 and is applied to all hosts unless explicitly defined
- 3. `username`: A username defined here will apply to all hosts
- 4. `password`: A password defined here will also apply to all hosts
- 5. `privateKey`: The path to a private ssh key (also applies to all defined hosts)
- 6. `logs`: An array of logs to monitor for all defined hosts
+    1. `host`: A host name defined here will work as a defined host
+    2. `port`: The default is 22 and is applied to all hosts unless explicitly defined
+    3. `username`: A username defined here will apply to all hosts
+    4. `password`: A password defined here will also apply to all hosts
+    5. `privateKey`: The path to a private ssh key (also applies to all defined hosts)
+    6. `logs`: An array of logs to monitor for all defined hosts
 2. `hosts`: The recommended method of including `host` definitions
- 1. `host`: The name or IP of machine to apply log monitoring streams
- 2. `port`: The SSH port for this particular host, uses global `port` option if omitted
- 3. `username`: The username for access, also uses the global `username` option if omitted
- 4. `password`: The password for access, again, uses the global `password` option if omitted
- 5. `privateKey`: The path to an SSH private key to use with this host. Will also use anything defined in global `privateKey` if omitted
- 6. `logs`: An array of logs to monitor for this host. Adds to anything defined in global `logs` array
+    1. `host`: The name or IP of machine to apply log monitoring streams
+    2. `port`: The SSH port for this particular host, uses global `port` option if omitted
+    3. `username`: The username for access, also uses the global `username` option if omitted
+    4. `password`: The password for access, again, uses the global `password` option if omitted
+    5. `privateKey`: The path to an SSH private key to use with this host. Will also use anything defined in global `privateKey` if omitted
+    6. `logs`: An array of logs to monitor for this host. Adds to anything defined in global `logs` array
 
 _Example_
 ```javascript

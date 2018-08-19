@@ -4,122 +4,56 @@
  * License: MIT
  */
 
+// Load our module
 var cherubum = require('../')
 
-var server = require(process.cwd()+'/test/assets/ssh-server.js');
-
+// Init testing tools
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
-var proc = require('child_process').exec;
 
+// Set some paths for assets
+var fs = require('fs');
+var path = require('path');
+var dir = path.dirname(fs.realpathSync(__filename)) + "/";
+var assets = dir+ '/assets/';
+
+// Define a timeout
 var timeout = 1024 * 1024;
 
 
 // Define options for proginoskes
 var options = {
   global: {
-    digest: true,
     port: 2222,
-    username: 'root',
+    username: 'jas',
     password: 'password',
     logs: [
-      '/var/log/bootstrap.log'
+      assets+'test-1.log'
     ]
   },
   hosts: [
     {
       host: 'localhost',
       logs: [
-        '/var/log/test.log'
+        assets+'test-2.log'
       ]
     }
   ]
 };
 
+var server;
 
-var fs = require('fs');
-var ssh2 = require('ssh2');
-var crypto = require('crypto');
-var exec = require('child_process');
-var inspect = require('util').inspect;
-var buffersEqual = require('buffer-equal-constant-time');
-
-// Set some defaults
-var assets = 'test/assets/';
-var port = 2222;
-
-// Ensure we have the tools to readh keys
-var utils = ssh2.utils;
-var pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync(assets+'id_rsa')));
-
-
+// Begin testing
 describe('proginoskes', function() {
 
   beforeEach(function(done) {
-    new ssh2.Server({hostKeys: [fs.readFileSync(assets+'host.key')]}, function(client) {
-
-      client.on('authentication', function(ctx) {
-        if (ctx.method === 'password'
-            && ctx.username === 'root'
-            && ctx.password === 'password') 
-          ctx.accept();
-        else if (ctx.method === 'publickey'
-                && ctx.key.algo === pubKey.fulltype
-                 && buffersEqual(ctx.key.data, pubKey.public)) {
-          if (ctx.signature) {
-            var verifier = crypto.createVerify(ctx.sigAlgo);
-            verifier.update(ctx.blob);
-            if (verifier.verify(pubKey.publicOrig, ctx.signature))
-              ctx.accept();
-            else
-              ctx.reject();
-          } else {
-            ctx.accept();
-          }
-        } else
-          ctx.reject();
-      }).on('ready', function() {
-        client.on('session', function(accept, reject) {
-          var session = accept();
-          session.once('exec', function(accept, reject, info) {
-
-            var stream = accept();
-            var object = [];
-
-            var exec = proc(info.command, function(err, stdout, stderr) {
-              if (err) return stream.write(new Error(err));
-            });
-
-            exec.stderr.on('data', function(err, stdout, stderr) {
-              if (err) return stream.write(new Error(err));
-            })
-
-            exec.stdout.on('data', function(chunk) {
-              object.push(chunk);
-            });
-            
-            exec.stdout.on('end', function() {
-
-              for(var bits in object) {
-                stream.write(bits);
-                stream.exit(0);
-                stream.end();
-              }
-            })
-          });
-        });
-      }).on('end', function() {
-
-      });
-    }).listen(port, '127.0.0.1', function() {
-      // listening for connections
-    });
+    server = require(assets+'ssh-server.js');
     done();
   });
 
   afterEach(function(done) {
-    done();  
+    done();
   });
 
   context('connection', function() {
@@ -128,10 +62,8 @@ describe('proginoskes', function() {
       this.timeout(timeout);
 
       cherubum.proginoskes(options, function(err, stream) {
-        //console.log(arguments)
-        //should.not.exist(err);
-
-        //stream.should.be.a('object');
+        should.not.exist(err);
+        stream.should.be.a('array');
         done();
       });
     });
