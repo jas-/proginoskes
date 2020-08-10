@@ -23,7 +23,7 @@
   "dependencies": {
     "async": "~0.9.0",
     "deepmerge": "^0.2.7",
-    "ssh2": "~0.3.6"
+    "ssh2": "~0.8.9"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
